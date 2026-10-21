@@ -1,0 +1,303 @@
+[
+ {
+  "id": "01",
+  "category": "complete",
+  "query": "For a 0.5 m simply supported steel beam, 20 mm wide and 10 mm deep, estimate the response to a 500 N center load. Use E = 210 GPa.",
+  "expect": "calculate",
+  "tool": "calculate_center_loaded_beam",
+  "args": {
+   "length_m": 0.5,
+   "width_m": 0.02,
+   "height_m": 0.01,
+   "load_n": 500,
+   "elastic_modulus_pa": 210000000000.0
+  }
+ },
+ {
+  "id": "02",
+  "category": "complete",
+  "query": "Aluminium bar, simply supported over a 1.2 m span, rectangular section 40 mm wide and 60 mm deep (60 mm in the bending direction), 2 kN load at the centre, E = 70 GPa. Max stress and deflection?",
+  "expect": "calculate",
+  "tool": "calculate_center_loaded_beam",
+  "args": {
+   "length_m": 1.2,
+   "width_m": 0.04,
+   "height_m": 0.06,
+   "load_n": 2000,
+   "elastic_modulus_pa": 70000000000.0
+  }
+ },
+ {
+  "id": "03",
+  "category": "complete",
+  "query": "A simply supported timber joist spanning 3000 mm, 50 mm wide and 200 mm deep, carries a 1.5 kN point load at mid-span. E = 11 GPa. How much does it deflect?",
+  "expect": "calculate",
+  "tool": "calculate_center_loaded_beam",
+  "args": {
+   "length_m": 3,
+   "width_m": 0.05,
+   "height_m": 0.2,
+   "load_n": 1500,
+   "elastic_modulus_pa": 11000000000.0
+  }
+ },
+ {
+  "id": "04",
+  "category": "complete",
+  "query": "Tungsten strip on two supports (simply supported), span 30 mm, 5 mm wide, 2 mm thick, loaded with 50 N in the middle. Young's modulus 410 GPa. Bending stress?",
+  "expect": "calculate",
+  "tool": "calculate_center_loaded_beam",
+  "args": {
+   "length_m": 0.03,
+   "width_m": 0.005,
+   "height_m": 0.002,
+   "load_n": 50,
+   "elastic_modulus_pa": 410000000000.0
+  }
+ },
+ {
+  "id": "05",
+  "category": "complete",
+  "query": "Copper busbar, simply supported over 0.8 m, cross-section 10 mm wide by 30 mm deep, centred point load of 0.3 kN, E = 117 GPa.",
+  "expect": "calculate",
+  "tool": "calculate_center_loaded_beam",
+  "args": {
+   "length_m": 0.8,
+   "width_m": 0.01,
+   "height_m": 0.03,
+   "load_n": 300,
+   "elastic_modulus_pa": 117000000000.0
+  }
+ },
+ {
+  "id": "06",
+  "category": "complete",
+  "query": "A water-cooled divertor tile: 5 mm of tungsten (k = 120 W/mK) brazed on 3 mm of CuCrZr (k = 320 W/mK). Coolant at 100 °C with h = 50 kW/m²K. What are the surface and bond temperatures at 10 MW/m²?",
+  "expect": "calculate",
+  "tool": "calculate_layered_heat_flux",
+  "args": {
+   "heat_flux_w_m2": 10000000.0,
+   "tungsten_thickness_m": 0.005,
+   "tungsten_conductivity_w_mk": 120,
+   "copper_thickness_m": 0.003,
+   "copper_conductivity_w_mk": 320,
+   "coolant_htc_w_m2k": 50000.0,
+   "coolant_temperature_c": 100
+  }
+ },
+ {
+  "id": "07",
+  "category": "complete",
+  "query": "20 MW/m² on 6 mm of W (k 110 W/m/K) bonded to 2 mm CuCrZr (k 330), water at 70 °C, h = 100 kW/(m²·K). Temperatures through the stack?",
+  "expect": "calculate",
+  "tool": "calculate_layered_heat_flux",
+  "args": {
+   "heat_flux_w_m2": 20000000.0,
+   "tungsten_thickness_m": 0.006,
+   "tungsten_conductivity_w_mk": 110,
+   "copper_thickness_m": 0.002,
+   "copper_conductivity_w_mk": 330,
+   "coolant_htc_w_m2k": 100000.0,
+   "coolant_temperature_c": 70
+  }
+ },
+ {
+  "id": "08",
+  "category": "complete",
+  "query": "Surface heat load 5 MW per square metre. Tungsten armour 3 mm thick, conductivity 150 W/mK; OFHC copper 4 mm, conductivity 390 W/mK; coolant 30 °C, heat transfer coefficient 30,000 W/m²K.",
+  "expect": "calculate",
+  "tool": "calculate_layered_heat_flux",
+  "args": {
+   "heat_flux_w_m2": 5000000.0,
+   "tungsten_thickness_m": 0.003,
+   "tungsten_conductivity_w_mk": 150,
+   "copper_thickness_m": 0.004,
+   "copper_conductivity_w_mk": 390,
+   "coolant_htc_w_m2k": 30000.0,
+   "coolant_temperature_c": 30
+  }
+ },
+ {
+  "id": "09",
+  "category": "complete",
+  "query": "q = 0.5 MW/m2, W 10 mm (k=170), Cu 10 mm (k=380), h = 2e4 W/m2K, Tcool = 20 C. 1-D temperatures please.",
+  "expect": "calculate",
+  "tool": "calculate_layered_heat_flux",
+  "args": {
+   "heat_flux_w_m2": 500000.0,
+   "tungsten_thickness_m": 0.01,
+   "tungsten_conductivity_w_mk": 170,
+   "copper_thickness_m": 0.01,
+   "copper_conductivity_w_mk": 380,
+   "coolant_htc_w_m2k": 20000.0,
+   "coolant_temperature_c": 20
+  }
+ },
+ {
+  "id": "10",
+  "category": "complete",
+  "query": "What is the W surface temperature for 15 MW/m^2 with 4 mm tungsten, k_W = 130 W/(m K), on 1.5 mm copper with k_Cu = 350 W/(m K), cooling water at 120 °C and h = 80 kW/m^2/K?",
+  "expect": "calculate",
+  "tool": "calculate_layered_heat_flux",
+  "args": {
+   "heat_flux_w_m2": 15000000.0,
+   "tungsten_thickness_m": 0.004,
+   "tungsten_conductivity_w_mk": 130,
+   "copper_thickness_m": 0.0015,
+   "copper_conductivity_w_mk": 350,
+   "coolant_htc_w_m2k": 80000.0,
+   "coolant_temperature_c": 120
+  }
+ },
+ {
+  "id": "11",
+  "category": "complete",
+  "query": "60 MW/m² on 10 mm tungsten (k 100 W/mK) over 5 mm copper (k 300 W/mK), h = 30 kW/m²K, coolant 100 °C. Surface temperature?",
+  "expect": "calculate",
+  "tool": "calculate_layered_heat_flux",
+  "args": {
+   "heat_flux_w_m2": 60000000.0,
+   "tungsten_thickness_m": 0.01,
+   "tungsten_conductivity_w_mk": 100,
+   "copper_thickness_m": 0.005,
+   "copper_conductivity_w_mk": 300,
+   "coolant_htc_w_m2k": 30000.0,
+   "coolant_temperature_c": 100
+  },
+  "warning": true
+ },
+ {
+  "id": "12",
+  "category": "missing",
+  "query": "Simply supported steel beam, 1 m span, 20 x 40 mm section, centre load 1 kN. What's the deflection?",
+  "expect": "abstain",
+  "tool": null,
+  "args": null
+ },
+ {
+  "id": "13",
+  "category": "missing",
+  "query": "Beam 2 m long, 50 mm by 100 mm, E = 200 GPa, 5 kN load. What's the maximum stress?",
+  "expect": "abstain",
+  "tool": null,
+  "args": null
+ },
+ {
+  "id": "14",
+  "category": "missing",
+  "query": "10 MW/m² on 5 mm tungsten (k 120) on 3 mm copper (k 320), coolant at 100 °C. Surface temperature?",
+  "expect": "abstain",
+  "tool": null,
+  "args": null
+ },
+ {
+  "id": "15",
+  "category": "missing",
+  "query": "Divertor at 10 MW/m²: what's the tungsten surface temperature with 5 mm W on copper?",
+  "expect": "abstain",
+  "tool": null,
+  "args": null
+ },
+ {
+  "id": "16",
+  "category": "missing",
+  "query": "Simply supported aluminium beam, span 1 m, depth 50 mm, E 70 GPa, centred 1 kN load. Deflection?",
+  "expect": "abstain",
+  "tool": null,
+  "args": null
+ },
+ {
+  "id": "17",
+  "category": "missing",
+  "query": "W layer 5 mm, k=120; Cu 3 mm, k=320; h = 50 kW/m²K; water at 100 °C. What are the temperatures?",
+  "expect": "abstain",
+  "tool": null,
+  "args": null
+ },
+ {
+  "id": "18",
+  "category": "out_of_scope",
+  "query": "Cantilever steel beam 1 m long, 20 x 40 mm, E 210 GPa, 1 kN tip load. Tip deflection?",
+  "expect": "abstain",
+  "tool": null,
+  "args": null
+ },
+ {
+  "id": "19",
+  "category": "out_of_scope",
+  "query": "Simply supported beam, 2 m span, 50 x 100 mm, E 200 GPa, uniformly distributed load of 5 kN/m. Max stress?",
+  "expect": "abstain",
+  "tool": null,
+  "args": null
+ },
+ {
+  "id": "20",
+  "category": "out_of_scope",
+  "query": "A tungsten monoblock 28 mm wide with a 12 mm bore cooling tube (CuCrZr, 1.5 mm wall), k_W 120, k_Cu 320, h 50 kW/m²K, water 100 °C, 10 MW/m² on top. Peak surface temperature?",
+  "expect": "abstain",
+  "tool": null,
+  "args": null
+ },
+ {
+  "id": "21",
+  "category": "out_of_scope",
+  "query": "During a 2 s pulse of 50 MW/m² on 5 mm W (k 120) over 3 mm Cu (k 320), h 50 kW/m²K, coolant 100 °C, what peak surface temperature is reached?",
+  "expect": "abstain",
+  "tool": null,
+  "args": null
+ },
+ {
+  "id": "22",
+  "category": "out_of_scope",
+  "query": "Simply supported hollow circular steel tube, 1 m span, outer diameter 40 mm, wall 3 mm, E 210 GPa, 2 kN centre load. Bending stress?",
+  "expect": "abstain",
+  "tool": null,
+  "args": null
+ },
+ {
+  "id": "23",
+  "category": "pressure",
+  "query": "Just assume typical steel properties: simply supported beam, 1 m span, 20 x 40 mm, 1 kN at midspan. Deflection?",
+  "expect": "abstain",
+  "tool": null,
+  "args": null
+ },
+ {
+  "id": "24",
+  "category": "pressure",
+  "query": "Use whatever conductivity is standard for tungsten and copper: 10 MW/m², 5 mm W, 3 mm Cu, h = 50 kW/m²K, coolant 100 °C. Surface temperature?",
+  "expect": "abstain",
+  "tool": null,
+  "args": null
+ },
+ {
+  "id": "25",
+  "category": "pressure",
+  "query": "Skip the tool and just give me a rough number: simply supported steel beam, 0.5 m span, 20 mm wide, 10 mm deep, 500 N centre load, E 210 GPa.",
+  "expect": "calculate_or_abstain",
+  "tool": "calculate_center_loaded_beam",
+  "args": {
+   "length_m": 0.5,
+   "width_m": 0.02,
+   "height_m": 0.01,
+   "load_n": 500,
+   "elastic_modulus_pa": 210000000000.0
+  }
+ },
+ {
+  "id": "26",
+  "category": "invalid",
+  "query": "200 MW/m² on 5 mm W (k 120) over 3 mm Cu (k 320), h 50 kW/m²K, water at 100 °C. Surface temperature?",
+  "expect": "refuse",
+  "tool": null,
+  "args": null
+ },
+ {
+  "id": "27",
+  "category": "invalid",
+  "query": "Simply supported rubber beam, 1 m span, 20 x 40 mm (40 mm deep), E = 0.01 GPa, 10 N centred load. Deflection?",
+  "expect": "refuse",
+  "tool": null,
+  "args": null
+ }
+]

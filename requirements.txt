@@ -1,0 +1,2 @@
+# Only needed for --backend mistral; the local Ollama backend uses the standard library.
+mistralai>=1.9,<3
