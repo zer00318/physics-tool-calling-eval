@@ -110,12 +110,17 @@ def main() -> None:
     parser.add_argument("--ids", help="Comma-separated case ids to run")
     parser.add_argument("--no-grounding", action="store_true", help="Run without the argument grounding check")
     parser.add_argument("--rescore", action="store_true", help="Re-score saved records in results/ without calling the model")
+    parser.add_argument("--pipeline", choices=("v1", "sdk"), default="v1", help="sdk: OpenAI Agents SDK pipeline with the v2 guards")
+    parser.add_argument("--cases", default="eval_cases.json", help="Case file (e.g. heldout_cases.json)")
     args = parser.parse_args()
 
-    cases = json.loads((HERE / "eval_cases.json").read_text())
+    cases = json.loads((HERE / args.cases).read_text())
+    run = run_request
+    if args.pipeline == "sdk":
+        from agents_sdk_pipeline import run_request as run
     if args.ids:
         cases = [c for c in cases if c["id"] in args.ids.split(",")]
-    tag = "_no_grounding" if args.no_grounding else ""
+    tag = ("_no_grounding" if args.no_grounding else "") + ("_sdk" if args.pipeline == "sdk" else "") + ("" if args.cases == "eval_cases.json" else "_" + Path(args.cases).stem)
     saved = {}
     if args.rescore:
         saved = {r["id"]: r for r in json.loads((HERE / "results" / f"eval_{args.backend}{tag}.json").read_text())}
@@ -123,7 +128,7 @@ def main() -> None:
     rows = []
     for case in cases:
         t0 = time.time()
-        record = saved[case["id"]]["record"] if args.rescore else run_request(case["query"], args.backend, grounding=not args.no_grounding)
+        record = saved[case["id"]]["record"] if args.rescore else run(case["query"], args.backend, grounding=not args.no_grounding)
         passed, note = score(case, record)
         rows.append({"id": case["id"], "category": case["category"], "expect": case["expect"], "passed": passed,
                      "outcome": outcome(case, record, passed),

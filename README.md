@@ -80,3 +80,23 @@ For Mistral's API: `pip install mistralai`, set `MISTRAL_API_KEY`, add `--backen
 - The solvers are screening formulas, not finite-element results or design approvals.
 
 Author: Venkata Sai Pranav Regulagedda (M.Sc. Materials Science, KIT; thesis at Max Planck IPP on tungsten–copper plasma-facing components, simulated in ANSYS and JAX-FEM).
+
+## v2: OpenAI Agents SDK pipeline with two more deterministic guards
+
+`agents_sdk_pipeline.py` rebuilds the same pipeline on the **OpenAI Agents SDK**, still on the local Mistral Small 3.2 through Ollama's OpenAI-compatible endpoint (no API key, nothing leaves the machine). The solvers are `FunctionTool`s with the original JSON schemas, the tool result ends the run (`stop_on_first_tool`), and a second tool-less agent only explains it. `guards.py` adds two checks aimed at the two remaining unsafe cases:
+
+- **Scope guard** (SDK input guardrail): trips before the model is called when the request describes something the tools do not model: transient loads, other supports or load cases, 2-D/3-D geometry, radiation (case 21).
+- **Reused-quantity check** (in the tool): rejects a call where two arguments were filled from one single written number, e.g. the stated depth reused as the width (case 16). A number may serve twice only if it is written twice or the section is called square.
+
+| Run | Cases | Correct | Safe miss | Unsafe |
+|---|---|---|---|---|
+| v1, model + grounding check | 27 original | 24 | 1 | 2 |
+| **v2, Agents SDK + guards** | 27 original | **26** | 1 | **0** |
+| v1, model + grounding check | 10 held-out | 8 | 0 | 2 |
+| **v2, Agents SDK + guards** | 10 held-out | **10** | 0 | **0** |
+
+`heldout_cases.json` was written after the guards and was not used to tune them. Its two v1 failures are a 0.5 s pulse run through the steady-state tool (H03) and an invented width (H07); both are now stopped deterministically. Two of the held-out out-of-scope cases (fixed-fixed beam, off-centre load) are caught by the model abstaining, not by the guard: the scope patterns are a keyword list and do not cover every phrasing. The remaining safe miss (case 03) is the original unit slip on 11 GPa, which the validator stops.
+
+Limits, stated plainly: 37 cases in total, all written by me; one model; temperature 0. The guards are deterministic and cheap, but the scope guard is a pattern list, so the next step is the scope classifier with its own test set.
+
+Reproduce: `uv venv .venv && uv pip install --python .venv/bin/python openai-agents`, then `.venv/bin/python eval.py --pipeline sdk` and `.venv/bin/python eval.py --pipeline sdk --cases heldout_cases.json`.

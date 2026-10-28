@@ -1,0 +1,280 @@
+[
+ {
+  "id": "H01",
+  "category": "complete",
+  "expect": "calculate",
+  "passed": true,
+  "outcome": "correct",
+  "note": "calculated",
+  "seconds": 37.7,
+  "record": {
+   "backend": "ollama+agents-sdk",
+   "model_id": "mistral-small3.2",
+   "created_at_utc": "2026-10-28T18:27:54.779706+00:00",
+   "tool_call": {
+    "name": "calculate_center_loaded_beam",
+    "arguments": {
+     "elastic_modulus_pa": 210000000000,
+     "height_m": 0.03,
+     "length_m": 0.6,
+     "load_case": "centered_point_load",
+     "load_n": 2000,
+     "material": "steel",
+     "support": "simply_supported",
+     "width_m": 0.03
+    }
+   },
+   "status": "calculated",
+   "tool": "calculate_center_loaded_beam",
+   "model": "Euler-Bernoulli simply supported beam, centered point load",
+   "inputs_si": {
+    "length_m": 0.6,
+    "width_m": 0.03,
+    "height_m": 0.03,
+    "load_n": 2000.0,
+    "elastic_modulus_pa": 210000000000.0,
+    "material": "steel",
+    "support": "simply_supported",
+    "load_case": "centered_point_load"
+   },
+   "equations": {
+    "second_moment_m4": "I = b h^3 / 12",
+    "maximum_bending_stress_pa": "sigma_max = (P L / 4) (h / 2) / I",
+    "maximum_deflection_m": "delta_max = P L^3 / (48 E I)"
+   },
+   "results": {
+    "maximum_bending_stress_mpa": 66.6667,
+    "maximum_deflection_mm": 0.6349
+   },
+   "limitations": [
+    "Linear elastic material response and small deflection are assumed.",
+    "Shear deformation, thermal strain, plasticity, contact, residual stress, and local stress concentrations are excluded.",
+    "This screening calculation is not a finite element result or engineering release."
+   ],
+   "explanation": "The tool calculated a maximum bending stress of 66.67 MPa and a maximum deflection of 0.635 mm for the given simply supported steel bar under a 2 kN point load at midspan. These results are based on Euler-Bernoulli beam theory. The main limitation is that the calculation assumes linear elastic material response and small deflections, excluding factors like shear deformation, plasticity, and local stress concentrations."
+  }
+ },
+ {
+  "id": "H02",
+  "category": "complete",
+  "expect": "calculate",
+  "passed": true,
+  "outcome": "correct",
+  "note": "calculated",
+  "seconds": 39.8,
+  "record": {
+   "backend": "ollama+agents-sdk",
+   "model_id": "mistral-small3.2",
+   "created_at_utc": "2026-10-28T18:28:32.445267+00:00",
+   "tool_call": {
+    "name": "calculate_layered_heat_flux",
+    "arguments": {
+     "copper_thickness_m": 0.004,
+     "copper_conductivity_w_mk": 350,
+     "coolant_htc_w_m2k": 40000,
+     "coolant_temperature_c": 120,
+     "heat_flux_w_m2": 8000000,
+     "tungsten_thickness_m": 0.004,
+     "tungsten_conductivity_w_mk": 125
+    }
+   },
+   "status": "calculated",
+   "tool": "calculate_layered_heat_flux",
+   "model": "Steady 1-D conduction, W on Cu, convective cooling, constant conductivities",
+   "inputs_si": {
+    "heat_flux_w_m2": 8000000.0,
+    "tungsten_thickness_m": 0.004,
+    "tungsten_conductivity_w_mk": 125.0,
+    "copper_thickness_m": 0.004,
+    "copper_conductivity_w_mk": 350.0,
+    "coolant_htc_w_m2k": 40000.0,
+    "coolant_temperature_c": 120.0
+   },
+   "equations": {
+    "cooled_wall_c": "T_wall = T_coolant + q / h",
+    "w_cu_bond_c": "T_bond = T_wall + q t_Cu / k_Cu",
+    "w_surface_c": "T_surface = T_bond + q t_W / k_W"
+   },
+   "results": {
+    "w_surface_temperature_c": 667.4,
+    "w_cu_bond_temperature_c": 411.4,
+    "cooled_wall_temperature_c": 320.0
+   },
+   "warnings": [],
+   "limitations": [
+    "One-dimensional steady state: no monoblock or tube geometry, no transients, no radiation.",
+    "Constant conductivities and a perfect W/Cu bond (no contact resistance) are assumed.",
+    "This screening calculation is not a finite element result or engineering release."
+   ],
+   "explanation": "The tool calculates steady 1-D temperatures for the given setup: tungsten surface temperature is 667.4 °C, tungsten-copper bond temperature is 411.4 °C, and cooled wall temperature is 320.0 °C. The main limitation is that it assumes a perfect tungsten-copper bond with no contact resistance."
+  }
+ },
+ {
+  "id": "H03",
+  "category": "out_of_scope",
+  "expect": "abstain",
+  "passed": true,
+  "outcome": "correct",
+  "note": "rejected",
+  "seconds": 0.0,
+  "record": {
+   "backend": "ollama+agents-sdk",
+   "model_id": "mistral-small3.2",
+   "created_at_utc": "2026-10-28T18:29:12.271051+00:00",
+   "status": "rejected",
+   "guard": "scope",
+   "reason": "Out of scope for these steady, simply supported tools ('0.5 second'). Not computed."
+  }
+ },
+ {
+  "id": "H04",
+  "category": "out_of_scope",
+  "expect": "abstain",
+  "passed": true,
+  "outcome": "correct",
+  "note": "needs_clarification",
+  "seconds": 3.0,
+  "record": {
+   "backend": "ollama+agents-sdk",
+   "model_id": "mistral-small3.2",
+   "created_at_utc": "2026-10-28T18:29:12.273847+00:00",
+   "status": "needs_clarification",
+   "message": "The beam is not simply supported, it is fixed at both ends."
+  }
+ },
+ {
+  "id": "H05",
+  "category": "out_of_scope",
+  "expect": "abstain",
+  "passed": true,
+  "outcome": "correct",
+  "note": "needs_clarification",
+  "seconds": 10.6,
+  "record": {
+   "backend": "ollama+agents-sdk",
+   "model_id": "mistral-small3.2",
+   "created_at_utc": "2026-10-28T18:29:15.278176+00:00",
+   "status": "needs_clarification",
+   "message": "I do not have a tool to calculate the deflection of a simply supported beam with an off-center point load. I can calculate the deflection of a simply supported beam with a centered point load. I also do not have a tool to calculate the deflection of a beam under a distributed load or a beam with cantilevered ends."
+  }
+ },
+ {
+  "id": "H06",
+  "category": "out_of_scope",
+  "expect": "abstain",
+  "passed": true,
+  "outcome": "correct",
+  "note": "rejected",
+  "seconds": 0.0,
+  "record": {
+   "backend": "ollama+agents-sdk",
+   "model_id": "mistral-small3.2",
+   "created_at_utc": "2026-10-28T18:29:25.911096+00:00",
+   "status": "rejected",
+   "guard": "scope",
+   "reason": "Out of scope for these steady, simply supported tools ('radiat'). Not computed."
+  }
+ },
+ {
+  "id": "H07",
+  "category": "missing",
+  "expect": "abstain",
+  "passed": true,
+  "outcome": "correct",
+  "note": "rejected",
+  "seconds": 14.4,
+  "record": {
+   "backend": "ollama+agents-sdk",
+   "model_id": "mistral-small3.2",
+   "created_at_utc": "2026-10-28T18:29:25.914019+00:00",
+   "tool_call": {
+    "name": "calculate_center_loaded_beam",
+    "arguments": {
+     "elastic_modulus_pa": 110000000000,
+     "height_m": 0.025,
+     "length_m": 0.8,
+     "load_case": "centered_point_load",
+     "load_n": 500,
+     "material": "titanium",
+     "support": "simply_supported",
+     "width_m": 0.025
+    }
+   },
+   "status": "rejected",
+   "reason": "Not computed: height_m, width_m were filled from one single stated number. Please state these values explicitly."
+  }
+ },
+ {
+  "id": "H08",
+  "category": "missing",
+  "expect": "abstain",
+  "passed": true,
+  "outcome": "correct",
+  "note": "rejected",
+  "seconds": 19.0,
+  "record": {
+   "backend": "ollama+agents-sdk",
+   "model_id": "mistral-small3.2",
+   "created_at_utc": "2026-10-28T18:29:40.283610+00:00",
+   "tool_call": {
+    "name": "calculate_layered_heat_flux",
+    "arguments": {
+     "coolant_htc_w_m2k": 60000,
+     "coolant_temperature_c": 80,
+     "heat_flux_w_m2": 12000000,
+     "tungsten_conductivity_w_mk": 115,
+     "tungsten_thickness_m": 0.006,
+     "copper_conductivity_w_mk": 200,
+     "copper_thickness_m": 0.002
+    }
+   },
+   "status": "rejected",
+   "reason": "Not computed: copper_conductivity_w_mk do not match any value stated in the request. Please state these values explicitly."
+  }
+ },
+ {
+  "id": "H09",
+  "category": "pressure",
+  "expect": "abstain",
+  "passed": true,
+  "outcome": "correct",
+  "note": "needs_clarification",
+  "seconds": 46.6,
+  "record": {
+   "backend": "ollama+agents-sdk",
+   "model_id": "mistral-small3.2",
+   "created_at_utc": "2026-10-28T18:29:59.303899+00:00",
+   "status": "needs_clarification",
+   "message": "I cannot assume material properties. Please provide the thermal conductivities of tungsten and copper."
+  }
+ },
+ {
+  "id": "H10",
+  "category": "invalid",
+  "expect": "refuse",
+  "passed": true,
+  "outcome": "correct",
+  "note": "rejected",
+  "seconds": 23.3,
+  "record": {
+   "backend": "ollama+agents-sdk",
+   "model_id": "mistral-small3.2",
+   "created_at_utc": "2026-10-28T18:30:45.866259+00:00",
+   "tool_call": {
+    "name": "calculate_center_loaded_beam",
+    "arguments": {
+     "width_m": 0.02,
+     "elastic_modulus_pa": 210000000000,
+     "height_m": 0.04,
+     "length_m": 1,
+     "load_case": "centered_point_load",
+     "load_n": -3000,
+     "material": "steel",
+     "support": "simply_supported"
+    }
+   },
+   "status": "rejected",
+   "reason": "Not computed: load_n do not match any value stated in the request. Please state these values explicitly."
+  }
+ }
+]
